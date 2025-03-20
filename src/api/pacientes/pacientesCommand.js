@@ -322,7 +322,7 @@ export const pacientesCommand = {
          NotificacionesModal.PantallaError(error.response.data.Detail)
       }
    },
-   postDiagnostico: async (pacienteId, expedienteId,fr,fc,temperatura,peso,estatura,imc,indiceCinturaCadera,saturacionOxigeno,presionArterial,valores,rangoDolor,nota,descripcion,refiere,categoria,diagnosticoPrevio,terapeuticaEmpleada,diagnosticoFuncional,padecimientoActual,inspeccion,palpitacion,movibilidad,estudiosComplementarios,diagnosticoNosologico,cortoPlazo,medianoPlazo,largoPlazo,tratamientoFisioterapeutico,sugerencias,pronostico,notas,folioPago,servicioId) => {
+   postDiagnostico: async (pacienteId, expedienteId,fr,fc,temperatura,peso,estatura,imc,indiceCinturaCadera,saturacionOxigeno,presionArterial,valores,rangoDolor,nota,descripcion,refiere,categoria,diagnosticoPrevio,terapeuticaEmpleada,diagnosticoFuncional,padecimientoActual,inspeccion,exploracionFisicaDescripcion,estudiosComplementarios,diagnosticoNosologico,cortoPlazo,medianoPlazo,largoPlazo,tratamientoFisioterapeutico,sugerencias,pronostico,notas,folioPago,servicioId) => {
       try {
          const JSON ={
             expedienteId,
@@ -351,8 +351,7 @@ export const pacientesCommand = {
                diagnosticoFuncional,
                padecimientoActual,
                inspeccion,
-               palpitacion,
-               movibilidad,
+               exploracionFisicaDescripcion,
                estudiosComplementarios,
                diagnosticoNosologico
             },
