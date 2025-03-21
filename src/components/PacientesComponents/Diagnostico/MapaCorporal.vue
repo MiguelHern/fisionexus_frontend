@@ -1,85 +1,93 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import {
-    areasAnterior,
-    areasAnteriorMujer,
-    areasLateral,
-    areasLateralMujer,
-    areasPosterior, areasPosteriorMujer
+  areasAnterior,
+  areasAnteriorMujer,
+  areasLateral,
+  areasLateralMujer,
+  areasPosterior, areasPosteriorMujer
 } from '@/helpers/mapaCorporal.js'
 
 const props = defineProps({
-    sexo: String,
-    loader: Boolean
+  sexo: String,
+  loader: Boolean
 })
 
 const areaSeleccionada = ref([])
 const painLevels = reactive({})
 
 let mapa =  reactive({
-    valores:[],
-    rangoDolor:[],
-    notas:null,
-    rangos: []
+  valores:[],
+  rangoDolor:[],
+  notas:null,
+  rangos: []
 })
 
 const emit = defineEmits(['mapaC'])
 
 const handleClick = (area) => {
+  console.log('Área clickeada:', area.name)
 
-    if (!areaSeleccionada.value.includes(area.name)) {
-        areaSeleccionada.value.push(area.name)
-        painLevels[area.name] = 0
+  if (!areaSeleccionada.value.includes(area.name)) {
+    areaSeleccionada.value.push(area.name)
+    painLevels[area.name] = 0
 
-        //Agregamos el id de la parte del cuerpo
-        mapa.valores.push(BuscadorArea(area.name).id)
-    } else {
-        const index = areaSeleccionada.value.indexOf(area.name)
-        areaSeleccionada.value.splice(index, 1)
-        delete painLevels[area.name]
+    //Agregamos el id de la parte del cuerpo
+    const areaEncontrada = BuscadorArea(area.name)
+    mapa.valores.push(areaEncontrada.id)
+  } else {
+    const index = areaSeleccionada.value.indexOf(area.name)
+    areaSeleccionada.value.splice(index, 1)
+    delete painLevels[area.name]
 
-        //Eliminamos el id de la parte del cuerpo
-        mapa.valores.value = mapa.valores.value.filter(x => x !== BuscadorArea(area.name).id)
-    }
+    //Eliminamos el id de la parte del cuerpo
+    const areaEncontrada = BuscadorArea(area.name)
+    mapa.valores = mapa.valores.filter(x => x !== areaEncontrada.id)
+  }
 }
 
 const BuscadorArea = (nombre) => {
-    let map = null
+  let map = null
 
-    map = areasAnterior.find(x => x.name === nombre)
+  map = areasAnterior.find(x => x.name === nombre)
 
-    if(map === undefined)
-        map = areasPosterior.find(x => x.name === nombre)
+  if(map === undefined)
+    map = areasPosterior.find(x => x.name === nombre)
 
-    if(map === undefined)
-        map = areasLateral.find(x => x.name === nombre)
+  if(map === undefined)
+    map = areasLateral.find(x => x.name === nombre)
 
-    return map
+  return map
 }
 
 const isSelected = (areaName) => {
-    return areaSeleccionada.value.includes(areaName)
+  return areaSeleccionada.value.includes(areaName)
 }
 
 //Este metodo se ejecuta al final, porque te convierte los rangos a una lista de enteros cuando ya estan listos
 const enviar = () => {
 
-    for (let key in painLevels) {
-        mapa.rangos.push(parseInt(painLevels[key], 10))
-    }
+  mapa.rangos = []
 
-    mapa.rangoDolor = mapa.rangos
+  for (let key in painLevels) {
+    const nivel = parseInt(painLevels[key], 10)
+    mapa.rangos.push(nivel)
+  }
+
+  // Asignar directamente los rangos calculados
+  mapa.rangoDolor = [...mapa.rangos]
 }
+
 const enviarMapa = () => {
-    enviar()
-    emit('mapaC', mapa)
+  enviar()
+  console.log('Datos del mapa a enviar:', mapa)
+  emit('mapaC', mapa)
 }
 
 defineExpose({
-    enviarMapa
+  enviarMapa
 })
 </script>
-
 <template>
     <div v-if="props.loader" class="h-[402px] flex justify-center items-center text-gray-600">
         <svg aria-hidden="true" role="status" class="inline w-10 h-10 me-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
