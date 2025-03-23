@@ -229,8 +229,6 @@ const enviarDiagnostico = async () => {
     folioPago.value,
     servicioId.value
   )
-  console.log(valores.value)
-  console.log(rangoDolor.value)
   loaderBoton.value = false
 }
 

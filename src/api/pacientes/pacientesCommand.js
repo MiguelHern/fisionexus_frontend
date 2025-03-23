@@ -375,7 +375,7 @@ export const pacientesCommand = {
          NotificacionesModal.ExitosoSimple('Se creo el diagnostico corretamente')
          await irExpediente(pacienteId)
       }catch (error){
-         NotificacionesModal.PantallaError(error.response.data.detail)
+         NotificacionesModal.PantallaError(error.response.data.title)
       }
    },
 
