@@ -67,8 +67,10 @@ const subirRevision = async () =>{
 
 <template>
     <div class="rounded-sm w-[800px]">
-        <header class="text-2xl text-gray-600 p-4 bg-gray-100 flex justify-center rounded-tl rounded-tr">
-            Revision
+        <header class="text-2xl text-gray-600 p-4 bg-gray-100 flex justify-between items-center rounded-tl rounded-tr">
+            <span></span>
+            <span class="self-center">Revisión</span>
+            <span  @click="emit('salir')" class=""><svg width="16px" height="16px" viewBox="-0.5 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M3 21.32L21 3.32001" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M3 3.32001L21 21.32" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></span>
         </header>
         <div class="flex gap-3 p-3">
             <section class="w-7/12">

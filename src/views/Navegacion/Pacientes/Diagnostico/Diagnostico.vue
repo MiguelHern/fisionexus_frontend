@@ -255,6 +255,7 @@ const revisionExitosa = () => {
 
 <template>
   <div class="flex gap-3 tablet:flex-wrap tablet:gap-0 telefono:flex-wrap">
+    
     <section class="desktop:w-3/12 laptop:w-3/12 tablet:w-full telefono:w-full">
       <div class="sticky top-0 flex flex-col gap-2">
         <div
@@ -286,6 +287,12 @@ const revisionExitosa = () => {
           <signos-vitales v-if="!citaInicial" @signos="obtenerSignos" />
           <SignosEspecificos v-else />
         </div>
+        <div v-show="citaInicial" class="flex flex-col gap-2">
+          <button class="button-primary" @click="ejecucionFinal()"><span class="text-gray-100">
+                        Finalizar
+                    </span>
+          </button>
+        </div>
         <div
           class="flex items-center w-full text-left rtl:text-right text-black bg-gray-100 border px-6 py-3 telefono:text-center text-sm">
           <p>A cargo: <span class="text-blue-600">{{ fisioterapeuta }}</span></p>
@@ -294,12 +301,7 @@ const revisionExitosa = () => {
           class="flex items-center w-full text-left rtl:text-right text-black bg-gray-100 border px-6 py-3 telefono:text-center text-sm">
           <p>Tipo de pago: <span class="text-blue-600">{{ tipoPago }}</span></p>
         </div>
-        <div v-show="citaInicial" class="flex flex-col gap-2">
-          <button class="input-primary" @click="ejecucionFinal()"><span class="text-gray-600">
-                        Finalizar
-                    </span>
-          </button>
-        </div>
+        
       </div>
     </section>
     <section ref="container"
